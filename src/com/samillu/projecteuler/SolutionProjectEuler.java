@@ -26,7 +26,12 @@ public class SolutionProjectEuler {
 
             int sumHalf = 0;
 
-            int numDigits = (int)Math.floor(Math.log(currNum)/Math.log(B)) + 1;
+            double ratio = Math.log(currNum)/Math.log(B);
+            if(Math.ceil(ratio) - ratio < 0.00000001d)
+            	ratio = Math.ceil(ratio);
+            
+            int numDigits = (int)Math.floor(ratio) + 1;
+            
 
             for(int ind = 0; ind < (int)Math.ceil(numDigits/2d); ind++) {
                 sumHalf += currNum % B;
