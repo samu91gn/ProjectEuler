@@ -1,6 +1,5 @@
 package com.samillu.projecteuler;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -8,7 +7,7 @@ public class SolutionProjectEuler {
     
     
     private static String result(int B, int[] digits){
-        
+            	
         String res = "";
         int base10Number = 0;
 
@@ -28,7 +27,7 @@ public class SolutionProjectEuler {
             for(int ind = 0; ind < (int)Math.ceil(numDigits/2d); ind++) {
                 sumHalf += tmpCurrNum % B;
                 if(numDigits % 2 == 0 || ind+1 < (int)Math.ceil(numDigits/2d))
-                	tmpCurrNum /= B; // to be done just if the digits are even OR the digit is NOT the last
+                	tmpCurrNum /= B; // remove a digit just if the digits are even OR the digit is NOT the mid digit (case odd)
             }
 
             for(int ind = 0; ind < (int)Math.ceil(numDigits/2d); ind++) {
@@ -40,7 +39,6 @@ public class SolutionProjectEuler {
                 count++;
                 totalSum += currNum;
             }
-
         }
         
         res += count + " " + totalSum;
