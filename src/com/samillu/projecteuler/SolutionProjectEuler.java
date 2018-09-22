@@ -16,43 +16,42 @@ public class SolutionProjectEuler {
             base10Number += digits[i] * Math.pow(B, digits.length - 1 - i);
         }
 
-        ArrayList<Integer> BBalancedNumbers = new ArrayList<>();
-
         int totalSum = 0;
+        int count = 0;
         
-        for(int i = 1; i <= base10Number; i++){
-            
-            int currNum = i;
-
+        for(int currNum = 1; currNum <= base10Number; currNum++){
+            int tmpCurrNum = currNum;
             int sumHalf = 0;
 
-            double ratio = Math.log(currNum)/Math.log(B);
-            if(Math.ceil(ratio) - ratio < 0.00000001d)
-            	ratio = Math.ceil(ratio);
-            
-            int numDigits = (int)Math.floor(ratio) + 1;
-            
+            int numDigits = getNumDigits(currNum, B);
 
             for(int ind = 0; ind < (int)Math.ceil(numDigits/2d); ind++) {
-                sumHalf += currNum % B;
+                sumHalf += tmpCurrNum % B;
                 if(numDigits % 2 == 0 || ind+1 < (int)Math.ceil(numDigits/2d))
-                    currNum /= B; // to be done just if the digits are even OR the digit is NOT the last
+                	tmpCurrNum /= B; // to be done just if the digits are even OR the digit is NOT the last
             }
 
             for(int ind = 0; ind < (int)Math.ceil(numDigits/2d); ind++) {
-                sumHalf -= currNum % B;
-                currNum /= B;
+                sumHalf -= tmpCurrNum % B;
+                tmpCurrNum /= B;
             }
 
             if(sumHalf == 0) {
-                BBalancedNumbers.add(i);
-                totalSum += i;
+                count++;
+                totalSum += currNum;
             }
 
         }
         
-        res += BBalancedNumbers.size() + " " + totalSum;
+        res += count + " " + totalSum;
         return res;
+    }
+    
+    private static int getNumDigits(int number, int base) {
+    	double ratio = Math.log(number)/Math.log(base);
+        if(Math.ceil(ratio) - ratio < 0.00000001d) //avoid approximation errors with numbers such as 1000
+        	ratio = Math.ceil(ratio);
+        return (int)Math.floor(ratio) + 1;
     }
 
     public static void main(String[] args) {
